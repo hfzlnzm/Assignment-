@@ -1,0 +1,55 @@
+MediPay technical evidence pack
+Collected: Sat Sep  5 21:35:46 UTC 2026 by <hafizul nizam>
+=== CEK-03 ===
+{
+    "ApplyServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "aws:kms",
+        "KMSMasterKeyID": "320a31a6-9018-4820-9039-d4aee6654c0b"
+    }
+}
+=== DSP-04 ===
+{
+    "TagSet": [
+        {
+            "Key": "classification",
+            "Value": "restricted-phi"
+        }
+    ]
+}
+=== DSP-17 ===
+{
+    "BlockPublicAcls": true,
+    "IgnorePublicAcls": true,
+    "BlockPublicPolicy": true,
+    "RestrictPublicBuckets": true
+}
+=== DSP-16 ===
+[
+    [
+        "expire-after-365-days",
+        "Enabled"
+    ]
+]
+=== IAM-05 ===
+{
+    "RoleName": "patient-lookup-role",
+    "PolicyName": "s3-read-only",
+    "PolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:GetObject"
+                ],
+                "Resource": "arn:aws:s3:::medipay-tenant-clinic1/confidential/*"
+            }
+        ]
+    }
+}
+=== IVS-01 ===
+{"Version":"2012-10-17","Statement":[{"Sid":"TenantIsolation","Effect":"Deny","Principal":"*","Action":"s3:*","Resource":["arn:aws:s3:::medipay-tenant-clinic1/*"],"Condition":{"StringNotEquals":{"aws:PrincipalTag/tenant":"clinic1"}}}]}
+=== LOG-07/LOG-02 ===
+40 mgmt-trail.log
+=== AIS-06 ===
+No hardcoded credentials found

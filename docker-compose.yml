@@ -1,0 +1,8 @@
+services:
+  localstack:
+    image: localstack/localstack:3.0.2
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3,iam,sts,kms
+      - DEBUG=1
